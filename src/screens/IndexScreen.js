@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { View, Text, FlatList, Button } from "react-native";
-import BlogContext from "../context/BlogContext";
+import Blog from "../context/Blog";
 
 export default function IndexScreen() {
-  const { data, addBlogPost } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+  const { data, addBlogPost } = useContext(Blog); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
 
   return (
     <View>
@@ -11,9 +11,7 @@ export default function IndexScreen() {
       <Button title="Add post" onPress={addBlogPost} />
       <FlatList
         data={data}
-        renderItem={({ item }) => {
-          return <Text>{item.title}</Text>;
-        }}
+        renderItem={({ item }) => <Text>{item.title}</Text>}
         keyExtractor={(blogPost) => blogPost.title}
       />
     </View>
