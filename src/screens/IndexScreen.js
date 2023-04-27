@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
-import { View, Text, FlatList, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import Blog from "../context/Blog";
 import { Entypo } from "@expo/vector-icons";
 
 export default function IndexScreen() {
-  const { data, addBlogPost } = useContext(Blog); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+  const { data, addBlogPost, deleteBlogPost } = useContext(Blog); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
 
   return (
     <View>
@@ -13,8 +20,13 @@ export default function IndexScreen() {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.row}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Entypo style={styles.icon} name="trash" />
+            <Text style={styles.title}>
+              {item.title}
+              {item.id}
+            </Text>
+            <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+              <Entypo style={styles.icon} name="trash" />
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(blogPost) => blogPost.title}
