@@ -20,7 +20,7 @@ export default function IndexScreen({ navigation }) {
         data={data}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Show", { id: item.id })}
+            onPress={() => navigation.navigate("Show", { id: item.id })} // the second parameter that we pass through navigation here (id) is not going to be received as a prop, instead, we have to receive the navigation prop once again and use getParam() in ShowScreen component
           >
             <View style={styles.row}>
               <Text style={styles.title}>

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Blog from "../context/Blog";
 
-export default function ShowScreen() {
+export default function ShowScreen({ navigation }) {
+  const id = navigation.getParam("id");
+  const { data } = useContext(Blog);
+  const blogPost = data.find((blogPost) => blogPost.id === id); // through context we are getting all the blogposts that we provided. Now we want to find the one which id matches with the blogPost that we get through navigation
   return (
     <View>
-      <Text>Show</Text>
+      <Text>{blogPost.title}</Text>
     </View>
   );
 }
