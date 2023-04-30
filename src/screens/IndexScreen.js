@@ -7,11 +7,11 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import Blog from "../context/Blog";
-import { Entypo } from "@expo/vector-icons";
+import BlogContext from "../context/Blog";
+import { Entypo, Feather } from "@expo/vector-icons";
 
 export default function IndexScreen({ navigation }) {
-  const { data, addBlogPost, deleteBlogPost } = useContext(Blog); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+  const { data, addBlogPost, deleteBlogPost } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
 
   return (
     <View>
@@ -38,6 +38,16 @@ export default function IndexScreen({ navigation }) {
     </View>
   );
 }
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+        <Feather name="plus" size={30} />
+      </TouchableOpacity>
+    ),
+  };
+};
 
 const styles = StyleSheet.create({
   row: {
