@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import BlogContext from "../context/Blog";
 
 export default function CreateScreen() {
-  const [title, setTitle] = useState();
-  const [content, setConetnt] = useState();
+  const [title, setTitle] = useState("");
+  const [content, setConetnt] = useState("");
   const { addBlogPost } = useContext(BlogContext);
 
   return (
@@ -23,7 +23,11 @@ export default function CreateScreen() {
       />
       <Button
         title="Add Blog Post"
-        onPress={() => addBlogPost(title, content)}
+        onPress={() => {
+          title.length > 0 && content.length > 0 && addBlogPost(title, content),
+            setTitle(""),
+            setConetnt("");
+        }}
       />
     </View>
   );
