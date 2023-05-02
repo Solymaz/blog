@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import BlogContext from "../context/Blog";
 
-export default function CreateScreen() {
+export default function CreateScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [content, setConetnt] = useState("");
   const { addBlogPost } = useContext(BlogContext);
@@ -24,9 +24,8 @@ export default function CreateScreen() {
       <Button
         title="Add Blog Post"
         onPress={() => {
-          title.length > 0 && content.length > 0 && addBlogPost(title, content),
-            setTitle(""),
-            setConetnt("");
+          title.length > 0 && content.length > 0 && addBlogPost(title, content); // in case we want to make a network request to an outside API and then we want to wait for a response
+          navigation.navigate("Index"); // that the blog post is successfully created before we navigato to the indexScreen in that case we do: addBlogPost(title, content, () => { navigation.navigate("Index") }) "check Blog.js"
         }}
       />
     </View>

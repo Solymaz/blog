@@ -26,6 +26,22 @@ export const BlogProvider = ({ children }) => {
   const addBlogPost = (title, content) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
   };
+
+  /* 
+  If anything fo wrong with the request we will not run the dispatch or the callBack(which is navigating the user to the indexScreen)
+  instead we catch the error. And we can handle a request resulting an error and not immediately navigating the user to the indexScreen.
+   const addBlogPost = dispatch => {
+    return async (title, content, callBack) => {
+    try{
+    await axios.post("abs", title, content)
+    dispatch({ type: "add_blogPost", payload: { title, content } });
+    callBack(); 
+      } catch (e) {
+        ...
+      }
+    }
+  };
+  */
   const deleteBlogPost = (id) => {
     dispatch({ type: "delete_blogPost", payload: id });
   };

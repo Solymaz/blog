@@ -11,11 +11,10 @@ import BlogContext from "../context/Blog";
 import { Entypo, Feather } from "@expo/vector-icons";
 
 export default function IndexScreen({ navigation }) {
-  const { data, addBlogPost, deleteBlogPost } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+  const { data, deleteBlogPost } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
 
   return (
     <View>
-      <Button title="Add post" onPress={addBlogPost} />
       <FlatList
         data={data}
         renderItem={({ item }) => (
