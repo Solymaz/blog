@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import BlogContext from "../context/Blog";
+import BlogPostForm from "../components/BlogPostForm";
 
 export default function EditScreen({ navigation }) {
-  const id = navigation.getParam("id");
-  return (
-    <View>
-      <Text>Edit {id}</Text>
-    </View>
-  );
+  const { data } = useContext(BlogContext);
+
+  const blogPost = data.find(
+    (blogPost) => blogPost.id === navigation.getParam("id")
+  ); // through context we are getting all the blogposts that we provided. Now we want to find the one which id matches with the blogPost that we get through navigation
+
+  return <BlogPostForm blogPost={blogPost} />;
 }

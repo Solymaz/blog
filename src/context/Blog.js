@@ -15,6 +15,20 @@ const blogReducer = (blogPosts, action) => {
       ];
     case "delete_blogPost":
       return blogPosts.filter((blogPost) => blogPost.id !== action.payload);
+    case "edit_blogPost":
+      return blogPosts.map((post) => {
+        if ((post.id = action.payload.id)) {
+          return [
+            ...post,
+            {
+              title: action.payload.title,
+              content: action.payload.content,
+              id: action.payload.id,
+            },
+          ];
+        }
+        return blogPosts;
+      });
     default:
       return blogPosts;
   }
@@ -25,8 +39,9 @@ export const BlogProvider = ({ children }) => {
     { id: 1, title: "test", content: "hi" },
   ]);
 
-  const addBlogPost = (title, content) => {
+  const addBlogPost = (title, content, callback) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
+    callback();
   };
 
   /* 
@@ -47,9 +62,12 @@ export const BlogProvider = ({ children }) => {
   const deleteBlogPost = (id) => {
     dispatch({ type: "delete_blogPost", payload: id });
   };
+  const editBlogPost = (id) => {
+    dispatch({ type: "edit_blogPost", payload: { title, content, id } });
+  };
   return (
     <BlogContext.Provider
-      value={{ data: blogPosts, addBlogPost, deleteBlogPost }}
+      value={{ data: blogPosts, addBlogPost, deleteBlogPost, editBlogPost }}
     >
       {children}
     </BlogContext.Provider>
