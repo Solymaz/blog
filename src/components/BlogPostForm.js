@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 
-export default function BlogPostForm({ onSubmit }) {
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+export default function BlogPostForm({ onSubmit, initialValues }) {
+  const [title, setTitle] = useState(initialValues.title);
+  const [content, setContent] = useState(initialValues.content);
 
   return (
     <View>
@@ -23,6 +23,15 @@ export default function BlogPostForm({ onSubmit }) {
     </View>
   );
 }
+// react will check if the component has initialValues or not. If not then it will pass default values on it.
+// this solve the issue that we do not send initialValues from createScreen but we do from editScreen
+
+BlogPostForm.defaultProps = {
+  initialValues: {
+    title: "",
+    content: "",
+  },
+};
 
 const styles = StyleSheet.create({
   input: {

@@ -62,8 +62,9 @@ export const BlogProvider = ({ children }) => {
   const deleteBlogPost = (id) => {
     dispatch({ type: "delete_blogPost", payload: id });
   };
-  const editBlogPost = (id) => {
+  const editBlogPost = (title, content, id, callback) => {
     dispatch({ type: "edit_blogPost", payload: { title, content, id } });
+    callback();
   };
   return (
     <BlogContext.Provider
