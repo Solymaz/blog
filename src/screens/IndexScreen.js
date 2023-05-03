@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  Button,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -22,10 +21,7 @@ export default function IndexScreen({ navigation }) {
             onPress={() => navigation.navigate("Show", { id: item.id })} // the second parameter that we pass through navigation here (id) is not going to be received as a prop, instead, we have to receive the navigation prop once again and use getParam() in ShowScreen component
           >
             <View style={styles.row}>
-              <Text style={styles.title}>
-                {item.title}
-                {item.id}
-              </Text>
+              <Text style={styles.title}>{item.title}</Text>
               <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Entypo style={styles.icon} name="trash" />
               </TouchableOpacity>

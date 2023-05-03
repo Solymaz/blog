@@ -21,7 +21,9 @@ const blogReducer = (blogPosts, action) => {
 };
 
 export const BlogProvider = ({ children }) => {
-  const [blogPosts, dispatch] = useReducer(blogReducer, []);
+  const [blogPosts, dispatch] = useReducer(blogReducer, [
+    { id: 1, title: "test", content: "hi" },
+  ]);
 
   const addBlogPost = (title, content) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
