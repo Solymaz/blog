@@ -31,7 +31,9 @@ export const BlogProvider = ({ children }) => {
 
   const addBlogPost = (title, content, callback) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
-    callback();
+    if (callback) {
+      callback();
+    }
   };
 
   /* 
@@ -54,7 +56,10 @@ export const BlogProvider = ({ children }) => {
   };
   const editBlogPost = (title, content, id, callback) => {
     dispatch({ type: "edit_blogPost", payload: { title, content, id } });
-    callback();
+    // in case we didn't want to navigate the user to another screen
+    if (callback) {
+      callback();
+    }
   };
   return (
     <BlogContext.Provider

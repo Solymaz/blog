@@ -12,7 +12,7 @@ export default function EditScreen({ navigation }) {
     <BlogPostForm
       initialValues={{ title: blogPost.title, content: blogPost.content }}
       onSubmit={(title, content) => {
-        editBlogPost(title, content, id, () => navigation.navigate("Show"));
+        editBlogPost(title, content, id, () => navigation.pop());
       }}
     />
   );
