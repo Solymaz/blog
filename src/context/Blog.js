@@ -1,9 +1,12 @@
 import React, { useReducer } from "react";
+import jsonServer from "../api/jsonServer";
 
 const BlogContext = React.createContext();
 
 const blogReducer = (blogPosts, action) => {
   switch (action.type) {
+    case "get_blogposts":
+      return action.payload;
     case "add_blogPost":
       return [
         ...blogPosts,
@@ -29,6 +32,12 @@ export const BlogProvider = ({ children }) => {
     { id: 1, title: "test", content: "hi" },
   ]);
 
+  const getBlogPosts = (dispatch) => {
+    return async () => {
+      const response = await jsonServer.get("/blogposts");
+      dispatch({ type: "get_blogposts", payload: response.data }); // when we call dipatch, react will call the reducer with the obj we send
+    };
+  };
   const addBlogPost = (title, content, callback) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
     if (callback) {
@@ -63,7 +72,13 @@ export const BlogProvider = ({ children }) => {
   };
   return (
     <BlogContext.Provider
-      value={{ data: blogPosts, addBlogPost, deleteBlogPost, editBlogPost }}
+      value={{
+        data: blogPosts,
+        addBlogPost,
+        deleteBlogPost,
+        editBlogPost,
+        getBlogPosts,
+      }}
     >
       {children}
     </BlogContext.Provider>
