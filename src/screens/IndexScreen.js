@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,11 @@ import BlogContext from "../context/Blog";
 import { Entypo, Feather } from "@expo/vector-icons";
 
 export default function IndexScreen({ navigation }) {
-  const { data, deleteBlogPost } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+  const { data, deleteBlogPost, getBlogPosts } = useContext(BlogContext); // when we call useContext its gonna give us whatever we added in the value prop inside the provider
+
+  useEffect(() => {
+    getBlogPosts();
+  }, []);
 
   return (
     <View>
