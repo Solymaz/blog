@@ -14,7 +14,7 @@ export default function IndexScreen({ navigation }) {
 
   useEffect(() => {
     getBlogPosts();
-  }, []);
+  }, [data]);
 
   return (
     <View>
