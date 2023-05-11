@@ -28,15 +28,10 @@ const blogReducer = (blogPosts, action) => {
 };
 
 export const BlogProvider = ({ children }) => {
-  const [blogPosts, dispatch] = useReducer(blogReducer, [
-    { id: 1, title: "test", content: "hi" },
-  ]);
-
-  const getBlogPosts = (dispatch) => {
-    return async () => {
-      const response = await jsonServer.get("/blogposts");
-      dispatch({ type: "get_blogposts", payload: response.data }); // when we call dipatch, react will call the reducer with the obj we send
-    };
+  const [blogPosts, dispatch] = useReducer(blogReducer, []);
+  const getBlogPosts = async () => {
+    const response = await jsonServer.get("/blogposts");
+    dispatch({ type: "get_blogposts", payload: response.data });
   };
   const addBlogPost = (title, content, callback) => {
     dispatch({ type: "add_blogPost", payload: { title, content } });
