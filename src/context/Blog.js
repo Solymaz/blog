@@ -16,13 +16,13 @@ const blogReducer = (blogPosts, action) => {
           title: action.payload.title,
           content: action.payload.content,
         },
-      ];*/
-    /* case "delete_blogPost":
-      return blogPosts.filter((blogPost) => blogPost.id !== action.payload);*/
+      ];
+     case "delete_blogPost":
+      return blogPosts.filter((blogPost) => blogPost.id !== action.payload);
     case "edit_blogPost":
       return blogPosts.map((blogPost) => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
-      });
+      }); */
     default:
       return blogPosts;
   }
@@ -68,9 +68,15 @@ export const BlogProvider = ({ children }) => {
   const deleteBlogPost = async (id) => {
     await jsonServer.delete(`/blogposts/${id}`);
   };
-  const editBlogPost = (title, content, id, callback) => {
+  /*const editBlogPost = (title, content, id, callback) => {
     dispatch({ type: "edit_blogPost", payload: { title, content, id } });
     // in case we didn't want to navigate the user to another screen
+    if (callback) {
+      callback();
+    }
+  };*/
+  const editBlogPost = async (title, content, id, callback) => {
+    await jsonServer.put(`/blogposts/${id}`, { title, content });
     if (callback) {
       callback();
     }
