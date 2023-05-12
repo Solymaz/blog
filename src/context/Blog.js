@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useReducer } from "react";
 import jsonServer from "../api/jsonServer";
 
@@ -7,7 +8,7 @@ const blogReducer = (blogPosts, action) => {
   switch (action.type) {
     case "get_blogposts":
       return action.payload;
-    case "add_blogPost":
+    /*case "add_blogPost":
       return [
         ...blogPosts,
         {
@@ -15,9 +16,9 @@ const blogReducer = (blogPosts, action) => {
           title: action.payload.title,
           content: action.payload.content,
         },
-      ];
-    case "delete_blogPost":
-      return blogPosts.filter((blogPost) => blogPost.id !== action.payload);
+      ];*/
+    /* case "delete_blogPost":
+      return blogPosts.filter((blogPost) => blogPost.id !== action.payload);*/
     case "edit_blogPost":
       return blogPosts.map((blogPost) => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
@@ -61,8 +62,11 @@ export const BlogProvider = ({ children }) => {
     }
   };
   */
-  const deleteBlogPost = (id) => {
+  /* const deleteBlogPost = (id) => {
     dispatch({ type: "delete_blogPost", payload: id });
+  };*/
+  const deleteBlogPost = async (id) => {
+    await jsonServer.delete(`/blogposts/${id}`);
   };
   const editBlogPost = (title, content, id, callback) => {
     dispatch({ type: "edit_blogPost", payload: { title, content, id } });
